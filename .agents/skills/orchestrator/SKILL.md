@@ -67,7 +67,7 @@ No começo de cada passo, leia `references/selecao-hibrida.md` e siga. Os campos
 Monte e valide a saída com o script, nunca à mão:
 
 ```bash
-python .agents/skills/orchestrator/scripts/montar_saida.py --campos campos.json --formato ativacao
+python .agents/skills/orchestrator/scripts/montar_saida.py --campos campos.json
 ```
 
 O script falha se um ator ativo vier sem trecho; o schema garante que um ator fixo nunca é desligado. Depois, entregue ao script de transições o evento `ativacao_decidida`: os campos do passo como vieram da spec, com a `decisao` de cada incerto preenchida. É esse evento que deixa a decisão no histórico.

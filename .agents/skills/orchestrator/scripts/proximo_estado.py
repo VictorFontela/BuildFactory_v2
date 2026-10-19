@@ -153,7 +153,7 @@ def _ativacao(e, ev):
     for nome, c in campos.items():
         if (c["valor"], c["trecho"]) != (spec[nome]["valor"], spec[nome]["trecho"]):
             raise ForaDeLugar(f"campo {nome} difere da spec: só a decisão do incerto pode ser acrescentada")
-    ativos = decidir(campos, "hibrida")
+    ativos = decidir(campos)
     e.ativos[str(e.passo)] = [b for b in BUILDERS if b in ativos]
     e.security[str(e.passo)] = "Security" in ativos
     return _ir(e, "Tests")

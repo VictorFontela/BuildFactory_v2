@@ -1,4 +1,4 @@
-# Seleção híbrida (peça ativa)
+# Seleção híbrida
 
 ## Entrada
 A Specification entrega, para cada passo, 4 campos. Cada campo tem `valor` (`true`, `false` ou `"incerto"`) e `trecho` (palavras exatas da spec que justificam).
