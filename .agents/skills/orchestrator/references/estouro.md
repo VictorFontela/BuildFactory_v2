@@ -19,7 +19,4 @@ Pause em **Escalar** e entregue ao humano um pacote com:
 Passos aprovados antes deste continuam valendo em qualquer saída.
 
 ## Por que escalar
-Na 3b, abortar direto não entrega os passos aprovados, e seguir com o passo marcado faz o passo seguinte ser construído sobre um defeito. Escalar foi a única opção sem os dois problemas. O teste de beco sem saída mostrou que o Escalar antigo, sem saídas, travava o fluxo.
-
-## Em aberto
-Ainda não há teto para `mais_uma_volta`. Até haver, registre no trace cada vez que o humano escolhe essa saída.
+Abortar direto perde os passos aprovados; seguir com o passo marcado constrói o próximo sobre um defeito. Escalar evita os dois.

@@ -17,4 +17,4 @@
 - Com `t = 2`, a próxima reprovação não volta: vai para o estouro (`references/estouro.md`).
 
 ## Por que quem reprovou indica
-Na 3a, com 8 reprovações: indicar pelo revisor deu 0 builder refazendo à toa; cruzar arquivos com dono deu 0,25 (erra quando a reprovação cita arquivos de dois builders); devolver para todos deu 0,875.
+É quem leu o defeito. Cruzar os arquivos com o dono erra quando a reprovação cita arquivos de dois builders, e devolver para todos faz builder refazer à toa.

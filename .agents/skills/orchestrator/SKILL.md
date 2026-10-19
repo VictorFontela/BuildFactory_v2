@@ -62,7 +62,7 @@ Os formatos dos eventos estão em `.agents/shared/eventos.py`, com um exemplo de
 
 ## 1. Escolher quem atua
 
-No começo de cada passo, leia `references/selecao-hibrida.md` e siga. Os campos `interface`, `servidor`, `agente_llm` e `seguranca` da spec decidem pela regra fixa; campo `incerto` é decidido por você, citando o trecho da spec. Na 2a, o "incerto" foi o que achou o trabalho de Backend que a spec não dizia em palavras (recall de Backend 1,00 contra 0,43 só com regras).
+No começo de cada passo, leia `references/selecao-hibrida.md` e siga. Os campos `interface`, `servidor`, `agente_llm` e `seguranca` da spec decidem pela regra fixa; campo `incerto` é decidido por você, citando o trecho da spec.
 
 Monte e valide a saída com o script, nunca à mão:
 
@@ -74,7 +74,7 @@ O script falha se um ator ativo vier sem trecho; o schema garante que um ator fi
 
 ## 2. Reprovação
 
-Reviewer, QA ou Security reprovam com `reprovacao{passo, reprovou, motivo, arquivos, destino, porque}`. O destino é o builder que causou o defeito, ou Tests quando o teste está errado. Quem reprovou indica o destino, porque é quem leu o defeito (na 3a: 0 builder refazendo à toa, contra 0,25 cruzando arquivos e 0,875 devolvendo para todos).
+Reviewer, QA ou Security reprovam com `reprovacao{passo, reprovou, motivo, arquivos, destino, porque}`. O destino é o builder que causou o defeito, ou Tests quando o teste está errado. Quem reprovou indica o destino, porque é quem leu o defeito.
 
 O script confere o destino e conta a volta. Se ele responder que o destino é inválido, devolva a reprovação para quem reprovou corrigir; isso não conta volta. Detalhes em `references/retorno.md`.
 
@@ -104,17 +104,10 @@ Se a situação pedir uma dessas decisões, devolva para o dono dela com o motiv
 
 ## Scripts
 
-| Script | Faz | Estado |
-|---|---|---|
-| `montar_saida.py` | liga builders e Security a partir dos campos | pronto |
-| `saida_ativacao.py`, `saida_dag.py` | schemas da saída ativa e da variante | pronto |
-| `proximo_estado.py` | tabela de transições, tetos de voltas e do Explorer, e o comando | pronto (E2) |
-| `estado.py` | forma do estado e gravação em `.agents/state/<capacidade>/`; o `estado.json` é gravado por último, porque confirma a rodada | pronto (E2) |
+| Script | Faz |
+|---|---|
+| `proximo_estado.py` | tabela de transições, tetos de voltas e do Explorer |
+| `estado.py` | grava o estado em `.agents/state/<capacidade>/`; o `estado.json` por último, porque confirma a rodada |
+| `montar_saida.py` | monta e valida a `ativacao_decidida` a partir dos campos |
 
-Scripts de outros papéis que você também roda: `reviewer/scripts/rodar_green.py --gravar-baseline` no começo (passo 1 do ciclo).
-
-## Pendências
-- Um Orchestrator por capacidade: não há trava contra duas sessões entregando eventos na mesma pasta.
-- Builders ativos rodam em paralelo por padrão; ainda não há regra para quando um precisa esperar o outro.
-- Sem teto para `mais_uma_volta` no Escalar.
-- Custo da ida e volta do Explorer (retomar o papel) ainda não medido.
+Do Reviewer, você roda `rodar_green.py --gravar-baseline` no passo 1 do ciclo.
