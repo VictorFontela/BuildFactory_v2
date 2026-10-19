@@ -1,0 +1,11 @@
+{
+  "tipo": "build_pronto",
+  "passo": 1,
+  "builder": "Backend",
+  "arquivos": [
+    "api/rotas/tarefas.py",
+    "api/repo/tarefas.py"
+  ],
+  "resumo": "PATCH /tarefas/{id} grava concluida; GET aceita ?status=",
+  "commit": "b2c3d4e"
+}

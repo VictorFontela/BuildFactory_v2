@@ -1,0 +1,4 @@
+{
+  "suite": "python -m pytest -q -p no:cacheprovider product --junitxml=.agents/state/suite.xml",
+  "junit": ".agents/state/suite.xml"
+}

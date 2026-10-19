@@ -1,0 +1,5 @@
+{
+  "tipo": "decisao_humana",
+  "saida": "seguir",
+  "instrucao": "não guarda; recarregar volta para Todas"
+}

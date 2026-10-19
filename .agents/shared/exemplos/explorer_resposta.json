@@ -1,0 +1,10 @@
+{
+  "tipo": "explorer_resposta",
+  "achados": [
+    {
+      "fonte": "web/src/api/cliente.ts:12",
+      "trecho": "export const api = axios.create({ baseURL: API_URL })"
+    }
+  ],
+  "nao_achou": false
+}

@@ -1,0 +1,9 @@
+{
+  "tipo": "explorar_solicitado",
+  "quem_chamou": "Frontend",
+  "pergunta": "qual cliente HTTP a tela usa e onde ele está?",
+  "escopo": [
+    "web/src/api/"
+  ],
+  "para_que": "chamar o PATCH no mesmo padrão das outras telas"
+}

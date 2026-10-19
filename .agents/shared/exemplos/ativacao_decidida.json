@@ -1,0 +1,21 @@
+{
+  "tipo": "ativacao_decidida",
+  "passo": 2,
+  "campos": {
+    "interface": {
+      "valor": true,
+      "trecho": "filtrar a lista por pendentes ou concluídas"
+    },
+    "servidor": {
+      "valor": "incerto",
+      "trecho": "filtrar a lista",
+      "decisao": false
+    },
+    "agente_llm": {
+      "valor": false
+    },
+    "seguranca": {
+      "valor": false
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "tipo": "reprovacao",
+  "passo": 1,
+  "reprovou": "QA",
+  "motivo": "com mais de 20 tarefas, a página 2 de ?status=concluidas traz pendentes",
+  "arquivos": [
+    "api/repo/tarefas.py"
+  ],
+  "destino": [
+    "Backend"
+  ],
+  "porque": "a paginação roda antes do filtro na query"
+}

@@ -1,0 +1,7 @@
+{
+  "tipo": "duvida_contrato",
+  "quem": "Tests",
+  "passo": 2,
+  "pergunta": "o filtro guarda a escolha ao recarregar a página?",
+  "por_que_muda": "se guarda, o teste precisa cobrir a leitura do armazenamento local"
+}

@@ -1,0 +1,9 @@
+{
+  "tipo": "limpeza_feita",
+  "removidos": [
+    "web/.tmp-mock-tarefas.json"
+  ],
+  "mantidos": [
+    ".agents/state/todo-concluir/"
+  ]
+}

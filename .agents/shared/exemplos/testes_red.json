@@ -1,0 +1,13 @@
+{
+  "tipo": "testes_red",
+  "passo": 1,
+  "arquivos": [
+    "api/tests/test_tarefas_status.py"
+  ],
+  "comando": "pytest api/tests/test_tarefas_status.py",
+  "falhas": [
+    "test_marcar_concluida: assert 404 == 200",
+    "test_filtrar_concluidas: assert 404 == 200"
+  ],
+  "commit": "a1b2c3d"
+}

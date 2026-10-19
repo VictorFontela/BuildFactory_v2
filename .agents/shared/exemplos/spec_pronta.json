@@ -1,0 +1,60 @@
+{
+  "tipo": "spec_pronta",
+  "passos": [
+    {
+      "id": 1,
+      "descricao": "API: PATCH /tarefas/{id} e GET /tarefas?status=",
+      "criterios": [
+        "PATCH /tarefas/{id} com concluida=true marca a tarefa como concluída e devolve 200 com a tarefa",
+        "PATCH de id que não existe devolve 404",
+        "GET /tarefas?status=pendentes traz só as não concluídas; status=concluidas só as concluídas",
+        "o filtro é aplicado antes da paginação de 20 por página"
+      ],
+      "diretorios": [
+        "api/"
+      ],
+      "campos": {
+        "interface": {
+          "valor": false
+        },
+        "servidor": {
+          "valor": true,
+          "trecho": "marcar uma tarefa como concluída"
+        },
+        "agente_llm": {
+          "valor": false
+        },
+        "seguranca": {
+          "valor": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "descricao": "Tela: caixa de concluir e filtro Pendentes / Concluídas",
+      "criterios": [
+        "cada tarefa da lista tem uma caixa que, marcada, conclui a tarefa pela API",
+        "o filtro Pendentes / Concluídas mostra só as tarefas daquele status"
+      ],
+      "diretorios": [
+        "web/src/tarefas/"
+      ],
+      "campos": {
+        "interface": {
+          "valor": true,
+          "trecho": "filtrar a lista por pendentes ou concluídas"
+        },
+        "servidor": {
+          "valor": "incerto",
+          "trecho": "filtrar a lista"
+        },
+        "agente_llm": {
+          "valor": false
+        },
+        "seguranca": {
+          "valor": false
+        }
+      }
+    }
+  ]
+}
