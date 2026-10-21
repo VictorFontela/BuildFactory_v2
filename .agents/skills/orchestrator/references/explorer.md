@@ -14,6 +14,6 @@
 Sem achados, `nao_achou` é `true`. Todo achado tem fonte: resposta sem fonte não pode ser conferida.
 
 ## Teto
-3 pedidos por estado em cada passo; o contador zera no passo seguinte e é separado por estado. O 4º pedido é recusado: diga ao estado que decida com o que tem ou que reprove o passo com o motivo.
+3 pedidos por papel em cada passo; o contador zera no passo seguinte e é separado por papel. O 4º pedido é recusado: diga ao papel que decida com o que tem ou que reprove o passo com o motivo.
 
 Formatos: `.agents/shared/eventos.py` (`ExplorarSolicitado`, `ExplorerResposta`). Teto: `scripts/proximo_estado.py` (`TETO_EXPLORER`).
