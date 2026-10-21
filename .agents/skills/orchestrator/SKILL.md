@@ -90,7 +90,7 @@ Quando um papel termina com `duvida_contrato`, entregue o evento ao script; ele 
 
 Um subagente não chama outro. Por isso o papel que precisa de informação termina com `explorar_solicitado`. Entregue esse evento ao script:
 - se ele autorizar, chame o Explorer como subagente e depois retome o papel que pediu com a resposta (continue o mesmo subagente se a ferramenta permitir; senão, chame de novo com a resposta junto da entrada);
-- se o teto de 3 pedidos por estado e passo já foi usado, chame o papel de novo dizendo que decida com o que tem ou reprove.
+- se o teto de 3 pedidos por papel e passo já foi usado, chame o papel de novo dizendo que decida com o que tem ou reprove.
 
 Detalhes do pedido e da resposta em `references/explorer.md`.
 
