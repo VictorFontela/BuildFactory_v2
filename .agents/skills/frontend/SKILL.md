@@ -42,5 +42,5 @@ Evento `build_pronto`, gravado pelo `registrar_build.py` no arquivo indicado na 
 
 ## Nunca decide
 - Alterar os testes: o script recusa e o Reviewer confere.
-- Mexer fora dos `diretorios` do passo ou nos arquivos de outro builder: o script recusa.
+- Mexer fora dos `diretorios` do passo: o script recusa. Nos arquivos de outro builder: o Reviewer confere.
 - Se o código está bom: é do Reviewer, do QA e do Security.

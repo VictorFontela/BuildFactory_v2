@@ -31,7 +31,7 @@ Grave no arquivo indicado na chamada e rode `python .agents/shared/validar.py li
 - **Só o que a capacidade criou.** O que já existia antes, mesmo com cara de lixo, fica: apagar o que a capacidade não criou precisa do humano.
 - **Nada rastreado pelo git**: nem apagar, nem commit, nem mexer em ramo.
 - **`.agents/state/` fica**: é o registro da capacidade.
-- Se o script sair com 2 (sem linha de base), não apague nada: termine com `duvida_contrato` mostrando a mensagem.
+- Se o script sair com 2 (sem linha de base ou outro erro de uso), não apague nada: termine com `duvida_contrato` mostrando a mensagem.
 
 ## Dúvida ou falta de informação
 - Falta uma decisão que muda o resultado: termine com `duvida_contrato`. O fluxo pausa até o humano responder.

@@ -16,4 +16,4 @@
   - Só papéis que atuam no passo; o script devolve a reprovação para você corrigir se o destino não atua.
 - **porque**: a causa, em uma frase, sem repetir o motivo. É o que ajuda quem corrige a não repetir o erro.
 
-Não reprove por gosto. Cada reprovação conta uma volta, e o passo tem 2 antes de ir para o humano.
+Não reprove por gosto. Cada reprovação aceita conta uma volta, e o passo tem 2 antes de ir para o humano.

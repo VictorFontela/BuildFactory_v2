@@ -8,12 +8,12 @@ description: "Papel Backend do fluxo multiagente: implementa rota, regra, query,
 **Missão.** Fazer os testes do passo passarem com o menor código correto, dentro dos diretórios do passo, sem tocar nos testes.
 
 ## Entrada
-O arquivo indicado na chamada traz a spec do passo e o `testes_red` (arquivos de teste, comando e commit); ou uma `reprovacao` em que você é o destino, com o motivo e o porquê; ou a instrução do humano depois de um Escalar.
+O arquivo indicado na chamada traz o pedido, a spec do passo e o `testes_red` (arquivos de teste, comando e commit); ou uma `reprovacao` em que você é o destino, com o motivo e o porquê; ou a instrução do humano depois de um Escalar.
 
 ## Passos
 1. Leia a spec do passo, os testes do `testes_red` e, se houver, a reprovação. Os testes são o contrato: o que eles pedem é o que o passo entrega.
 2. Leia `references/convencoes.md` e o código vizinho antes de escrever.
-3. Implemente só nos arquivos do servidor, dentro dos `diretorios` do passo.
+3. Implemente só nos arquivos do servidor, dentro dos `diretorios` do passo. Outro builder pode estar no mesmo passo: não mexa nos arquivos dele.
 4. Rode o comando do `testes_red` até todos os testes passarem. Rode também os outros testes do projeto que tocam no que você mudou.
 5. Em reprovação, corrija só o que o motivo aponta.
 6. Faça commit local terminando com a linha `Papel: Backend` e grave o evento com o script:

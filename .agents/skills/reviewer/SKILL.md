@@ -15,7 +15,7 @@ O arquivo indicado na chamada: a spec do passo, o `testes_red` e o `build_pronto
    ```bash
    python .agents/skills/reviewer/scripts/rodar_green.py --testes-red <arquivo de entrada> --saida <pasta do evento>/green-passo-<n>.json
    ```
-   Ele confere: os testes do passo passam; o `git diff` desde o commit do Tests não toca nos testes; tudo o que mudou está nos `diretorios` do passo; não há mudança sem commit; a suíte inteira não tem falha nova em relação à linha de base.
+   Ele confere: os testes do passo passam; o `git diff` desde o commit do Tests não toca nos testes; tudo o que mudou está nos `diretorios` do passo; não há mudança sem commit nos `diretorios` do passo nem nos testes; a suíte inteira não tem falha nova em relação à linha de base.
    - Saída 1: reprove com os `motivos` do relatório (passo 3). Não revise o resto.
    - Saída 2 (a suíte não rodou, falta configuração): termine com `duvida_contrato` com a mensagem do script.
 2. Leia o que mudou: `git diff <commit do testes_red>..HEAD`. Revise só esse diff, contra a descrição e os trechos do passo, seguindo `references/revisao.md`.

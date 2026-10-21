@@ -2,8 +2,8 @@
 
 Uso (a partir da raiz do repositório):
     python .agents/skills/tests/scripts/rodar_red.py --passo 1 \
-        --comando "pytest api/tests/test_x.py --junitxml=.agents/tmp/red.xml" \
-        --junit .agents/tmp/red.xml --arquivos api/tests/test_x.py --evento <arquivo do evento>
+        --comando "pytest api/tests/test_x.py --junitxml=.agents/state/red.xml" \
+        --junit .agents/state/red.xml --arquivos api/tests/test_x.py --evento <arquivo do evento>
 
 O comando roda os testes e precisa gravar o relatório em JUnit XML no caminho
 de --junit (pytest: --junitxml; jest: jest-junit; vitest: --reporter=junit;

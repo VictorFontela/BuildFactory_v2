@@ -25,7 +25,7 @@ A descrição diz o resultado que se vê, em uma frase, com o nome da parte do p
 
 ## Replanejar
 
-Ao receber `replanejar_de: N`, copie os passos 1 a N−1 da spec anterior **exatamente** como estavam, campo por campo, e refaça só do passo N em diante, seguindo a instrução do humano. O script recusa a spec que altera um passo anterior.
+Ao receber `replanejar_de: N`, copie os passos 1 a N−1 da spec anterior **exatamente** como estavam, campo por campo, e refaça só do passo N em diante, seguindo a instrução do humano. O script devolve para corrigir a spec que altera um passo anterior.
 
 ## Exemplos
 

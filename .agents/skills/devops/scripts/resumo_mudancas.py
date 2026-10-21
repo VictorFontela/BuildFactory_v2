@@ -12,7 +12,7 @@ começo) e o histórico de eventos, e consulta o git. Devolve em JSON:
   - o comando para voltar atrás.
 Não muda nada no repositório.
 
-Saída 0: ok. 2: capacidade sem linha de base ou sem histórico.
+Saída 0: ok. 2: capacidade sem linha de base, sem histórico, uso errado ou falha do git.
 """
 import argparse
 import json
