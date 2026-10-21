@@ -16,8 +16,11 @@ O arquivo indicado na chamada traz `capacidade` e `pedido`, como o humano escrev
 3. Para cada passo, escreva os `criterios` seguindo `references/criterios.md`: o que o passo entrega, cada um verificável por teste. São o contrato do Tests, dos builders e dos revisores.
 4. Para cada passo, liste em `diretorios` as pastas que ele pode alterar.
 5. Para cada passo, marque os 4 campos seguindo `references/campos.md`. É a parte que mais pesa: leia a referência inteira antes de marcar.
-6. Em `replanejar_de`, mantenha os passos anteriores ao indicado exatamente como estavam.
-7. Grave o evento e valide.
+6. Grave o evento e valide.
+
+## Regras
+- **As palavras do pedido justificam cada campo**: `true` e `incerto` trazem o trecho exato do pedido.
+- **Replanejar não muda o que já passou**: em `replanejar_de`, os passos anteriores ao indicado ficam exatamente como estavam.
 
 ## Saída
 Evento `spec_pronta`, exemplo em `.agents/shared/exemplos/spec_pronta.json`:

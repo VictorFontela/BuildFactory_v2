@@ -26,7 +26,7 @@ python .agents/skills/tests/scripts/rodar_red.py --passo <n> \
 
 Grave o JUnit XML numa pasta fora do git, como `.agents/state/`. pytest: `--junitxml=<caminho>`; jest: `jest-junit` com `addFileAttribute`; vitest: `--reporter=junit --outputFile=<caminho>`; node:test: `--test-reporter=./.agents/shared/reporters/junit-node.mjs --test-reporter-destination=<caminho>`. Passo com testes em duas linguagens: um comando que roda as duas e os dois caminhos em `--junit`.
 
-## Regras para os testes
+## Regras
 
 1. **Pelo menos um teste por critério**, com um nome que diga o critério (`test_status_invalido_levanta_valueerror`).
 2. **Teste os limites que a spec nomeia**: "exatamente", "mais de", "vazio", "além do fim", "inválido", "outro usuário". É neles que o defeito costuma morar.
@@ -35,6 +35,7 @@ Grave o JUnit XML numa pasta fora do git, como `.agents/state/`. pytest: `--juni
 5. **Use só a interface pública do passo** (as funções, rotas ou componentes que a spec ou o esqueleto definem). Se a interface ainda não existe, defina-a no próprio teste, com nomes simples, e ela vira o contrato dos builders.
 6. **Cada teste monta os próprios dados**, pequenos e explícitos, e não depende de outro teste.
 
+## Saída
 Evento `testes_red`: `passo, arquivos, comando, falhas, commit`; exemplo em `.agents/shared/exemplos/testes_red.json`.
 Quem grava e valida o evento é o `rodar_red.py`: use o arquivo indicado na chamada em `--evento`. Não escreva o evento à mão.
 

@@ -20,18 +20,18 @@ O arquivo indicado na chamada traz a `capacidade`. O humano já aprovou a entreg
 3. Não toque no que está em `manter` nem em `avisar`. `avisar` vai para o humano, no evento.
 4. Confira com `git status` que nada rastreado mudou.
 
+## Regras
+- **Só o que a capacidade criou.** O que já existia antes, mesmo com cara de lixo, fica: apagar o que a capacidade não criou precisa do humano.
+- **Nada rastreado pelo git**: nem apagar, nem commit, nem mexer em ramo.
+- **`.agents/state/` fica**: é o registro da capacidade.
+- Se o script sair com 2 (sem linha de base ou outro erro de uso), não apague nada: termine com `duvida_contrato` mostrando a mensagem.
+
 ## Saída
 Evento `limpeza_feita{removidos, mantidos}`:
 - `removidos`: os caminhos que você apagou;
 - `mantidos`: os de `manter` e os de `avisar`, cada um com o motivo depois de ` — ` (`"app/rascunho.py — entrou em commit com nome de rascunho: o humano decide"`).
 
 Grave no arquivo indicado na chamada e rode `python .agents/shared/validar.py limpeza_feita <arquivo>`. Só entregue se passar.
-
-## Regras
-- **Só o que a capacidade criou.** O que já existia antes, mesmo com cara de lixo, fica: apagar o que a capacidade não criou precisa do humano.
-- **Nada rastreado pelo git**: nem apagar, nem commit, nem mexer em ramo.
-- **`.agents/state/` fica**: é o registro da capacidade.
-- Se o script sair com 2 (sem linha de base ou outro erro de uso), não apague nada: termine com `duvida_contrato` mostrando a mensagem.
 
 ## Dúvida ou falta de informação
 - Falta uma decisão que muda o resultado: termine com `duvida_contrato`. O fluxo pausa até o humano responder.

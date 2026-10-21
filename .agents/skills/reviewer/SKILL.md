@@ -18,8 +18,12 @@ O arquivo indicado na chamada: a spec do passo, o `testes_red` e o `build_pronto
    Ele confere: os testes do passo passam; o `git diff` desde o commit do Tests não toca nos testes; tudo o que mudou está nos `diretorios` do passo; não há mudança sem commit nos `diretorios` do passo nem nos testes; a suíte inteira não tem falha nova em relação à linha de base.
    - Saída 1: reprove com os `motivos` do relatório (passo 3). Não revise o resto.
    - Saída 2 (a suíte não rodou, falta configuração): termine com `duvida_contrato` com a mensagem do script.
-2. Leia o que mudou: `git diff <commit do testes_red>..HEAD`. Revise só esse diff, contra a descrição e os trechos do passo, seguindo `references/revisao.md`.
-3. Aprove, ou reprove seguindo `.agents/shared/guias/reprovacao.md`. Uma reprovação traz tudo o que você achou, não um item por volta.
+2. Leia o que mudou: `git diff <commit do testes_red>..HEAD`, e revise seguindo `references/revisao.md`.
+3. Aprove, ou reprove seguindo `.agents/shared/guias/reprovacao.md`.
+
+## Regras
+- **Só o diff do passo**, contra a descrição e os trechos do passo.
+- **Tudo numa reprovação**: ela traz tudo o que você achou, não um item por volta.
 
 ## Saída
 - `aprovado{passo, papel: "Reviewer", evidencia}`: a `evidencia` diz o que o green rodou (testes do passo e total da suíte) e o que a revisão olhou.
