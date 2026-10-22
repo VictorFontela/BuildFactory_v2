@@ -9,7 +9,7 @@ Você é a sessão principal e **só roteia**. Não escreve plano (Specification
 
 ## O fluxo fica no script
 
-As transições estão em `scripts/proximo_estado.py`. Você não decide para onde o fluxo vai: entrega o evento ao script e faz o que ele responde. O estado (passo atual, contador de voltas `t`, pedidos ao Explorer) fica em `.agents/state/<capacidade>/` e só os scripts escrevem lá.
+As transições estão em `scripts/proximo_estado.py`. Você não decide para onde o fluxo vai: entrega o evento ao script e faz o que ele responde. O estado (passo atual, contador de voltas `t`, pedidos ao Explorer) fica em `.agents/state/<capacidade>/`; o `estado.json` e o histórico, só os scripts escrevem.
 
 ```
 Specification → Tests (red) → [builders ativos] → Reviewer (green + revisão) → QA → [Security] → próximo passo
@@ -36,7 +36,7 @@ Explorer: qualquer papel pede, por evento
 2. O script responde em JSON. Em `chamar`, cada papel vem com `entrada` (o arquivo que ele lê) e `evento_em` (onde ele grava o evento): chame-o com o texto de [Chamar um papel](#chamar-um-papel). O DevOps vem com `pacote_em` (onde grava o pacote para o humano), e a resposta traz em `depois` onde gravar a decisão do humano.
 3. O subagente grava o evento em `evento_em` e o valida antes de entregar.
 4. Entregue o evento: `python .agents/skills/orchestrator/scripts/proximo_estado.py --capacidade <nome> --evento <evento_em>`. O script confere a guarda, grava no histórico e responde `chamar`, `aguardar`, `decidir`, `perguntar` ou `fim`.
-5. Em `decidir`, grave a `ativacao_decidida` em `evento_em` (seção 1). Em `perguntar` (Escalar ou Duvida), mostre o `pacote` ao humano e grave a resposta como `decisao_humana` em `evento_em`. No DevOps, mostre o pacote e grave a decisão como `devops_decisao` em `depois.evento_em`.
+5. Em `decidir`, grave a `ativacao_decidida` em `evento_em` (seção 1). Em `perguntar` (Escalar ou Duvida), mostre o `pacote` ao humano e grave a resposta como `decisao_humana` em `evento_em`. No DevOps, mostre o pacote e grave a decisão como `devops_decisao` em `depois.evento_em`. Grave `motivo` e `instrucao` como ele escreveu, sem completar.
 6. Repita até `fim`. Para saber onde o fluxo está, rode o comando só com `--capacidade <nome>`: ele repete a última resposta.
 
 Códigos de saída: 0 ok; 1 evento inválido (corrija e entregue de novo); 2 uso errado ou JSON ilegível; 3 evento fora de lugar (nada foi gravado: confira se entregou o arquivo certo); 4 capacidade inexistente ou já iniciada.
@@ -54,6 +54,7 @@ Só entregue se a validação passar.
 Se faltar informação, termine com o evento explorar_solicitado.
 Se o contrato estiver errado ou faltar uma decisão que muda o resultado,
 termine com o evento duvida_contrato.
+Rascunho (arquivo de trabalho, print, perfil de navegador): só em .agents/state/<capacidade>/rascunho/, nunca em /tmp.
 ```
 
 Para o DevOps, troque as linhas do evento por: `Ao terminar, grave o pacote em <pacote_em>.` Ele não grava evento; a decisão é do humano.
@@ -67,7 +68,7 @@ No começo de cada passo, leia `references/selecao-hibrida.md` e siga. Os campos
 Monte e valide a saída com o script, nunca à mão:
 
 ```bash
-python .agents/skills/orchestrator/scripts/montar_saida.py --campos campos.json
+python .agents/skills/orchestrator/scripts/montar_saida.py --campos .agents/state/<capacidade>/rascunho/campos.json
 ```
 
 O script falha se um ator ativo vier sem trecho; o schema garante que um ator fixo nunca é desligado. Depois, entregue ao script de transições o evento `ativacao_decidida`: os campos do passo como vieram da spec, com a `decisao` de cada incerto preenchida. É esse evento que deixa a decisão no histórico.

@@ -5,14 +5,15 @@ Uso (a partir da raiz do repositório):
 
 Compara o que está fora do git agora com o que estava no começo da capacidade
 (`fora_do_git` na linha de base) e devolve:
-  - remover: arquivos e pastas fora do git que apareceram durante a capacidade;
+  - remover: arquivos e pastas fora do git que apareceram durante a capacidade,
+    e a pasta de rascunho dos papéis (`.agents/state/<capacidade>/rascunho/`);
   - manter: o que já existia antes, os caches que se refazem sozinhos e
-    `.agents/state/` (o registro da capacidade);
+    o resto de `.agents/state/` (o registro da capacidade);
   - avisar: arquivos com cara de rascunho que entraram em commit na capacidade
     (o Cleanup não os apaga: passaram pela revisão; vão para o humano).
-Não apaga nada.
+Não apaga nada: quem apaga é o apagar_sobras.py, que refaz esta lista.
 
-Saída 0: ok. 2: capacidade sem linha de base.
+Saída 0: ok. 2: capacidade sem linha de base, uso errado ou falha do git.
 """
 import argparse
 import json
@@ -47,6 +48,8 @@ def listar(raiz, capacidade):
     antes = set(base["fora_do_git"])
     agora = [l for l in git(raiz, "ls-files", "--others", "--directory", "--no-empty-directory", "--exclude=/.agents/state/").splitlines() if l]
     remover, manter = [], [{"caminho": f".agents/state/{capacidade}/", "por_que": "registro da capacidade"}]
+    if (raiz / ".agents" / "state" / capacidade / "rascunho").is_dir():
+        remover.append({"caminho": f".agents/state/{capacidade}/rascunho/", "por_que": "rascunho dos papéis nesta capacidade"})
     for c in agora:
         if c in antes:
             manter.append({"caminho": c, "por_que": "já existia antes da capacidade"})

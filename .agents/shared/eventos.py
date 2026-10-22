@@ -203,7 +203,7 @@ class DuvidaContrato(Base):
 class DecisaoHumana(Base):
     tipo: Literal["decisao_humana"]
     saida: Literal["mais_uma_volta", "replanejar", "abortar", "seguir"]
-    instrucao: str = ""
+    instrucao: str = Field("", description="as palavras do humano, como ele escreveu; o que ele não disse não entra")
 
     @model_validator(mode="after")
     def instrucao_quando_precisa(self):
@@ -215,7 +215,7 @@ class DecisaoHumana(Base):
 class DevopsDecisao(Base):
     tipo: Literal["devops_decisao"]
     aprovado: bool
-    motivo: str = ""
+    motivo: str = Field("", description="as palavras do humano, como ele escreveu; o que ele não disse não entra")
 
     @model_validator(mode="after")
     def motivo_na_recusa(self):
@@ -225,9 +225,15 @@ class DevopsDecisao(Base):
 
 
 class LimpezaFeita(Base):
+    """Gravado pelo apagar_sobras.py. O comando do Orchestrator confere os removidos contra a linha de base."""
     tipo: Literal["limpeza_feita"]
     removidos: list[Texto]
     mantidos: list[Texto]
+
+    @field_validator("removidos")
+    @classmethod
+    def removidos_no_repositorio(cls, v):
+        return [caminho_relativo(c) for c in v]
 
 
 MODELOS = {m.model_fields["tipo"].annotation.__args__[0]: m for m in (

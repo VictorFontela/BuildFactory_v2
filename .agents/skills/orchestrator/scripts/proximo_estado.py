@@ -391,6 +391,26 @@ def _gravar_rodada(raiz, e, ev, r):
     return r
 
 
+def _conferir_limpeza(raiz, base, capacidade, removidos):
+    """O Cleanup só apaga o que a capacidade criou fora do registro: confere cada removido contra a linha de base."""
+    linha = base / "baseline-suite.json"
+    if not linha.is_file():
+        raise Saida(1, f"limpeza recusada, nada foi gravado: sem linha de base em {_rel(raiz, linha)}")
+    antes = set(json.loads(linha.read_text(encoding="utf-8")).get("fora_do_git", []))
+    rascunho = f".agents/state/{capacidade}/rascunho"
+    erros = []
+    for c in removidos:
+        limpo = c.rstrip("/")
+        if c in antes or limpo in antes or limpo + "/" in antes:
+            erros.append(f"{c}: já existia antes da capacidade")
+        elif limpo.startswith(".agents/state") and not (limpo == rascunho or limpo.startswith(rascunho + "/")):
+            erros.append(f"{c}: é do registro da capacidade")
+        elif (raiz / limpo).exists():
+            erros.append(f"{c}: continua lá")
+    if erros:
+        raise Saida(1, "limpeza recusada, nada foi gravado:\n" + "\n".join(f"- {x}" for x in erros))
+
+
 def executar(args, raiz):
     raiz = Path(raiz).resolve()
     if not args.capacidade:
@@ -411,6 +431,8 @@ def executar(args, raiz):
         e, r = transicao(carregar(raiz, args.capacidade), ev)
     except ForaDeLugar as err:
         raise Saida(3, f"evento fora de lugar, nada foi gravado: {err}")
+    if ev.tipo == "limpeza_feita":
+        _conferir_limpeza(raiz, base, args.capacidade, ev.removidos)
     return _gravar_rodada(raiz, e, ev, r)
 
 

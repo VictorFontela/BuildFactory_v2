@@ -44,9 +44,11 @@ class Sessao:
         elif r["acao"] in ("decidir", "perguntar"):
             self.onde["_pausa"] = r["evento_em"]
 
-    def iniciar(self, pedido=PEDIDO):
+    def iniciar(self, pedido=PEDIDO, fora_do_git=()):
         cod, r = cmd(self.raiz, "--iniciar", pedido)
         assert cod == 0, r
+        base = self.raiz / ".agents" / "state" / CAP / "baseline-suite.json"
+        base.write_text(json.dumps({"commit": "abc1234", "total": 0, "falhando": [], "fora_do_git": list(fora_do_git)}))
         self.lembrar(r)
         return r
 
@@ -136,3 +138,35 @@ def test_dois_builders_recebem_entradas_e_saidas_separadas(tmp_path):
     assert resumo(r) == "aguardar Backend"
     cod, r = s.entregar(ev("build_pronto"))
     assert resumo(r) == "chamar Reviewer"
+
+
+def ate_o_cleanup(tmp_path, fora_do_git=()):
+    s = Sessao(tmp_path)
+    s.iniciar(fora_do_git=fora_do_git)
+    for evento, _ in TODO[1:-1]:
+        cod, r = s.entregar(evento)
+        assert cod == 0, r
+    assert resumo(s.ultima) == "chamar Cleanup"
+    return s
+
+
+def test_limpeza_so_do_que_a_capacidade_criou(tmp_path):
+    (tmp_path / "notas.txt").write_text("do humano")
+    (tmp_path / "ja-existia").mkdir()
+    s = ate_o_cleanup(tmp_path, fora_do_git=["ja-existia/"])
+    antes = estado_bytes(tmp_path)
+    for removidos, motivo in [(["ja-existia/"], "já existia antes"), ([f".agents/state/{CAP}/estado.json"], "registro da capacidade"),
+                              (["notas.txt"], "continua lá")]:
+        cod, msg = s.entregar(ev("limpeza_feita", removidos=removidos))
+        assert cod == 1 and motivo in msg and estado_bytes(tmp_path) == antes, msg
+    cod, msg = s.entregar(ev("limpeza_feita", removidos=["/tmp/todo-ativacao.json"]))
+    assert cod == 1 and "relativo" in msg and estado_bytes(tmp_path) == antes
+    cod, r = s.entregar(ev("limpeza_feita", removidos=[f".agents/state/{CAP}/rascunho/", "web/.tmp-mock-tarefas.json"]))
+    assert cod == 0 and resumo(r) == "fim Entregue"
+
+
+def test_limpeza_sem_linha_de_base_e_recusada(tmp_path):
+    s = ate_o_cleanup(tmp_path)
+    (tmp_path / ".agents" / "state" / CAP / "baseline-suite.json").unlink()
+    cod, msg = s.entregar(ev("limpeza_feita"))
+    assert cod == 1 and "sem linha de base" in msg

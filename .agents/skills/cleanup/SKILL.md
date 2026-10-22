@@ -11,30 +11,28 @@ description: "Papel Cleanup do fluxo multiagente: depois que o humano aprovou a 
 O arquivo indicado na chamada traz a `capacidade`. O humano já aprovou a entrega.
 
 ## Passos
-1. Liste as sobras:
+1. Veja o que vai sair, sem apagar nada:
    ```bash
    python .agents/skills/cleanup/scripts/listar_sobras.py --capacidade <capacidade> --saida .agents/state/<capacidade>/cleanup/sobras.json
    ```
-   O script compara o que está fora do git agora com o que estava no começo da capacidade. Ele não apaga nada.
-2. Apague **só** o que está em `remover`, um caminho por vez (`rm -r -- <caminho>`).
-3. Não toque no que está em `manter` nem em `avisar`. `avisar` vai para o humano, no evento.
-4. Confira com `git status` que nada rastreado mudou.
+   Ele compara o que está fora do git com o começo da capacidade; a pasta de rascunho também vai para `remover`.
+2. Apague e grave o evento com o script, que refaz a lista, apaga só o que está em `remover` e confere que nada rastreado mudou:
+   ```bash
+   python .agents/skills/cleanup/scripts/apagar_sobras.py --capacidade <capacidade> --evento <arquivo do evento>
+   ```
 
 ## Regras
+- **Só o script apaga.** Sem `rm`. O que não está em `remover` fica, mesmo fora do repositório: aprovar a entrega não aprova uma remoção.
 - **Só o que a capacidade criou.** O que já existia antes, mesmo com cara de lixo, fica: apagar o que a capacidade não criou precisa do humano.
 - **Nada rastreado pelo git**: nem apagar, nem commit, nem mexer em ramo.
-- **`.agents/state/` fica**: é o registro da capacidade.
-- Se o script sair com 2 (sem linha de base ou outro erro de uso), não apague nada: termine com `duvida_contrato` mostrando a mensagem.
+- **`.agents/state/` fica**, menos a pasta `rascunho/`: é o registro da capacidade.
+- Se um dos scripts sair com 1 ou 2, não apague nada à mão: termine com `duvida_contrato` mostrando a mensagem.
 
 ## Saída
-Evento `limpeza_feita{removidos, mantidos}`:
-- `removidos`: os caminhos que você apagou;
-- `mantidos`: os de `manter` e os de `avisar`, cada um com o motivo depois de ` — ` (`"app/rascunho.py — entrou em commit com nome de rascunho: o humano decide"`).
-
-Grave no arquivo indicado na chamada e rode `python .agents/shared/validar.py limpeza_feita <arquivo>`. Só entregue se passar.
+Evento `limpeza_feita{removidos, mantidos}`, gravado pelo `apagar_sobras.py` no arquivo indicado na chamada; não o escreva à mão. O Orchestrator recusa removido fora do repositório, que já existia ou que continua lá.
 
 ## Dúvida ou falta de informação
 - Falta uma decisão que muda o resultado: termine com `duvida_contrato`. O fluxo pausa até o humano responder.
 
 ## Nunca decide
-- Apagar `.agents/state/`, arquivo rastreado ou o que não está em `remover`.
+- Apagar `.agents/state/` (fora a pasta `rascunho/`), arquivo rastreado ou o que não está em `remover`.

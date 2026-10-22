@@ -69,6 +69,8 @@ INVALIDOS = [
     ("decisao_humana", "seguir sem instrução", lambda d: d.update(instrucao=" ")),
     ("devops_decisao", "recusa sem motivo", lambda d: d.update(aprovado=False, motivo="")),
     ("limpeza_feita", "sem removidos", lambda d: d.pop("removidos")),
+    ("limpeza_feita", "removido fora do repositório", lambda d: d.update(removidos=["/tmp/todo-ativacao.json"])),
+    ("limpeza_feita", "removido subindo de pasta", lambda d: d.update(removidos=["../outro/x"])),
 ]
 
 
